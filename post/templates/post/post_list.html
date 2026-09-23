@@ -1,16 +1,15 @@
-{% load static %}
+{% extends "post/base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <link rel="stylesheet" href="{% static 'post/estilos.css' %}" />
-    </head>
-    <body>
-        <h1>Mi Blog</h1>
-        <h2>Lista de posts</h2>
-        <p>{{ posts_tecnologia }}</p>
-    </body>
-</html>
+{% block contenido %}
+    <h1>Mi Blog</h1>
+    <h2>Lista de posts</h2>
+    <ol>
+        {% for post in posts_tecnologia %}
+            <li style="background-color: burlywood;">
+                <p><b>Título:</b> {{ post.titulo }}</p>
+                <p><b>Autor:</b> {{ post.autor }}</p>
+                <p><b>Resumen:</b> {{ post.resumen }}</p>
+            </li>
+        {% endfor %}
+    </ol>
+{% endblock contenido %}

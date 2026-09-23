@@ -1,0 +1,105 @@
+{% extends "post/base.html" %}
+
+{% block contenido %}
+    <div style="max-width: 500px;
+                margin: 40px auto;
+                padding: 30px;
+                background-color: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+        <h2 style="margin-top: 0;
+                   margin-bottom: 10px;
+                   color: #333333;
+                   font-size: 28px;
+                   font-weight: 600;
+                   text-align: center">Contacto</h2>
+        <p style="margin-top: 0;
+                  margin-bottom: 25px;
+                  color: #666666;
+                  font-size: 15px;
+                  text-align: center">Escribinos tu mensaje y nos pondremos en contacto con vos a la brevedad.</p>
+        <form action="#" method="post">
+            <!-- Campo: Nombre -->
+            <div style="margin-bottom: 20px;">
+                <label for="nombre"
+                       style="display: block;
+                              margin-bottom: 8px;
+                              color: #444444;
+                              font-size: 14px;
+                              font-weight: 600">Nombre completo</label>
+                <input type="text"
+                       id="nombre"
+                       name="nombre"
+                       placeholder="Tu nombre"
+                       required
+                       style="width: 100%;
+                              padding: 12px;
+                              border: 1px solid #cccccc;
+                              border-radius: 6px;
+                              box-sizing: border-box;
+                              font-size: 15px;
+                              color: #333333;
+                              outline: none" />
+            </div>
+            <!-- Campo: Email -->
+            <div style="margin-bottom: 20px;">
+                <label for="email"
+                       style="display: block;
+                              margin-bottom: 8px;
+                              color: #444444;
+                              font-size: 14px;
+                              font-weight: 600">Correo electrónico</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       placeholder="tu@email.com"
+                       required
+                       style="width: 100%;
+                              padding: 12px;
+                              border: 1px solid #cccccc;
+                              border-radius: 6px;
+                              box-sizing: border-box;
+                              font-size: 15px;
+                              color: #333333;
+                              outline: none" />
+            </div>
+            <!-- Campo: Mensaje -->
+            <div style="margin-bottom: 25px;">
+                <label for="mensaje"
+                       style="display: block;
+                              margin-bottom: 8px;
+                              color: #444444;
+                              font-size: 14px;
+                              font-weight: 600">Mensaje</label>
+                <textarea id="mensaje"
+                          name="mensaje"
+                          rows="5"
+                          placeholder="¿En qué te podemos ayudar?"
+                          required
+                          style="width: 100%;
+                                 padding: 12px;
+                                 border: 1px solid #cccccc;
+                                 border-radius: 6px;
+                                 box-sizing: border-box;
+                                 font-size: 15px;
+                                 color: #333333;
+                                 outline: none;
+                                 resize: vertical;
+                                 min-height: 100px"></textarea>
+            </div>
+            <!-- Botón Enviar -->
+            <button type="submit"
+                    style="width: 100%;
+                           padding: 14px;
+                           background-color: #007bff;
+                           color: #ffffff;
+                           border: none;
+                           border-radius: 6px;
+                           font-size: 16px;
+                           font-weight: 600;
+                           cursor: pointer;
+                           transition: background-color 0.2s ease-in-out">Enviar mensaje</button>
+        </form>
+    </div>
+{% endblock contenido %}

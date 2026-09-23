@@ -8,6 +8,10 @@ def inicio(request):
     return render(request, "post/inicio.html")
 
 
+def contacto(request):
+    return render(request, "post/contacto.html")
+
+
 def post_list(request):
     posts_tecnologia = [
         {
@@ -52,4 +56,4 @@ def post_list(request):
         },
     ]
 
-    return render(request, "post/post_list.html", context={"posts_tecnologia": posts_tecnologia[0]})
+    return render(request, "post/post_list.html", context={"posts_tecnologia": posts_tecnologia})
