@@ -8,7 +8,9 @@
             <li style="background-color: burlywood;">
                 <p><b>Título:</b> {{ post.titulo }}</p>
                 <p><b>Autor:</b> {{ post.autor }}</p>
-                <p><b>Resumen:</b> {{ post.resumen }}</p>
+                <p><b>Resumen:</b> {{ post.contenido }}</p>
+                <p><b>Tags:</b> {{ post.tags }}</p>
+                <p><b>Fecha de creacion:</b> {{ post.fecha_creacion }}</p>
             </li>
         {% endfor %}
     </ol>

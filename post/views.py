@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from post.models import Post
 # Create your views here.
 
 
@@ -13,47 +13,29 @@ def contacto(request):
 
 
 def post_list(request):
-    posts_tecnologia = [
-        {
-            "id": 1,
-            "titulo": "El impacto de la Inteligencia Artificial en la medicina actual",
-            "autor": "Alejandro Gómez",
-            "fecha": "2026-09-15",
-            "categoria": "Inteligencia Artificial",
-            "resumen": "Cómo los nuevos modelos de lenguaje y diagnóstico ayudan a los médicos a detectar enfermedades de forma temprana.",
-        },
-        {
-            "id": 2,
-            "titulo": "Guía completa de Computación Cuántica para principiantes",
-            "autor": "Elena Rostova",
-            "fecha": "2026-09-18",
-            "categoria": "Computación Cuántica",
-            "resumen": "Un desglose sencillo de los conceptos de cúbits, superposición y cómo cambiarán el procesamiento de datos.",
-        },
-        {
-            "id": 3,
-            "titulo": "Las mejores prácticas de Ciberseguridad para el trabajo remoto",
-            "autor": "Carlos Mendoza",
-            "fecha": "2026-09-20",
-            "categoria": "Ciberseguridad",
-            "resumen": "Protege tus datos y los de tu empresa con estos cinco consejos esenciales de configuración de redes y contraseñas.",
-        },
-        {
-            "id": 4,
-            "titulo": "¿Qué es la Web3 y por qué debería importarte?",
-            "autor": "Laura Benítez",
-            "fecha": "2026-09-21",
-            "categoria": "Blockchain",
-            "resumen": "Una mirada al futuro de Internet descentralizado, las aplicaciones basadas en blockchain y la soberanía de los datos.",
-        },
-        {
-            "id": 5,
-            "titulo": "Tendencias en desarrollo móvil para finales de año",
-            "autor": "Martín Silva",
-            "fecha": "2026-09-22",
-            "categoria": "Desarrollo de Software",
-            "resumen": "Analizamos el crecimiento de las apps multiplataforma y la integración nativa de micro-modelos de IA en dispositivos.",
-        },
-    ]
+    # ORM = Object-Relational Mapping / Mapeo Objecto-Relacional
 
-    return render(request, "post/post_list.html", context={"posts_tecnologia": posts_tecnologia})
+    posts_tecnologia = (Post.objects.all()
+        .order_by("-fecha_modificacion")
+        .exclude(publicado=False)
+    ) # SELECT * FROM post_post; / QuerySet([Post1, Post2, ...])
+    try:
+        posts_tecnologia = [Post.objects.get(id=10)]
+    except (Post.DoesNotExist, Post.MultipleObjectsReturned):
+        posts_tecnologia = []
+    
+    posts_tecnologia = (Post.objects
+                        .filter(contenido__icontains="django", publicado=True)) # Si quiero ingnorar mayus/minus uso icontains. Sino contains
+                        #.filter(contenido__istartswith="o"))
+                        #.filter(contenido__endswith="django")) # Django, django, djangO, etc..
+                        # __gt (Mayor que) / __gte (Mayor o igual que)
+                        # __lt (Menor que) / __lte (Menor o igual que)
+                        # autor_id__in=[2, 4, 10]
+                        # autor__isnull=True / False
+    if posts_tecnologia.exists() is True: # len(posts_tecnologia) mayor que 0  / posts_tecnologia.count() mayor que 0
+        posts_tecnologia = posts_tecnologia[1]
+    posts_tecnologia = Post.objects.all().first() # Me trae el PRIMER registro de la tabla
+    posts_tecnologia = Post.objects.all().last() # Me trae el ULTIMO registro de la tabla
+    cantidad_de_post = Post.objects.all().count()
+    
+    return render(request, "post/post_list.html", context={"posts_tecnologia": posts_tecnologia, "cantidad_post": cantidad_de_post})
