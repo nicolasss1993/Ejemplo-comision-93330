@@ -1,7 +1,7 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from post.forms import PostForm
 from post.models import Post
-# Create your views here.
 
 
 def inicio(request):
@@ -12,6 +12,7 @@ def contacto(request):
     return render(request, "post/contacto.html")
 
 
+"""
 def post_list(request):
     # ORM = Object-Relational Mapping / Mapeo Objecto-Relacional
 
@@ -39,3 +40,51 @@ def post_list(request):
     cantidad_de_post = Post.objects.all().count()
     
     return render(request, "post/post_list.html", context={"posts_tecnologia": posts_tecnologia, "cantidad_post": cantidad_de_post})
+"""
+
+
+def post_list(request):
+    post_tecnologia = Post.objects.all()
+    cantidad_de_post = Post.objects.all().count()
+    context = {
+        "post_tecnologia": post_tecnologia,
+        "cantidad_post": cantidad_de_post,
+    }
+    return render(request, "post/post_list.html", context)
+
+
+def post_detail(request, pk):
+    post = Post.objects.get(id=pk)
+    return render(request, "post/post_detail.html", {"post": post})
+
+
+def post_delete(request, pk):
+    post = Post.objects.get(id=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect("post_list")
+
+    return render(request, "post/post_confirm_delete.html", {"post": post})
+
+
+def post_create(request):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("post_list")
+
+    form = PostForm()
+    return render(request, "post/post_form.html", {"form": form})
+
+
+def post_update(request, pk):
+    post = Post.objects.get(id=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect("post_list")
+
+    form = PostForm(instance=post)
+    return render(request, "post/post_form.html", {"form": form})

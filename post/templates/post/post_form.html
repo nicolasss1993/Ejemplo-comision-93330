@@ -1,0 +1,15 @@
+{% extends "post/base.html" %}
+
+{% block contenido %}
+    {% if form.instance.pk %}
+        <h1>Editar post</h1>
+    {% else %}
+        <h1>Crear post</h1>
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="{% url 'post_list' %}">Volver</a>
+{% endblock contenido %}

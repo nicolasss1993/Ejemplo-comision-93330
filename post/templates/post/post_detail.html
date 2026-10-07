@@ -1,0 +1,29 @@
+{% extends "post/base.html" %}
+
+{% block contenido %}
+    <h1>{{ post.titulo }}</h1>
+    <p>
+        <b>Autor:</b> {{ post.autor }}
+        <b>Publicado:</b> {{ post.fecha_creacion|date:"d/m/Y" }} |
+        <b>Código:</b> <code>{{ post.codigo }}</code>
+    </p>
+    {% if post.imagen %}
+        <div>
+            <img src="{{ post.imagen.url }}"
+                 alt=""
+                 style="max-width: 100%;
+                        height: auto" />
+        </div>
+    {% endif %}
+    <div>
+        <p>{{ post.contenido|linebreaks }}</p>
+    </div>
+    {% if post.tags %}
+        <div>
+            <b>Etiquetas</b>
+            {% for tag in post.obtener_lista_de_tags %}
+                {{ tag }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock contenido %}

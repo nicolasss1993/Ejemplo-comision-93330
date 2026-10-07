@@ -15,6 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings  # Importaciones para usar "media"
+from django.conf.urls.static import static  # Importaciones para usar "media"
 from django.contrib import admin
 from django.urls import include, path
 
@@ -22,3 +24,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("post.urls")),
 ]
+
+# Esto sirve para usar archivos "media" en modo desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# C:\blog\media\posts\mi_imagen.jpg  ->  /media/posts/mi_imagen.jpg
