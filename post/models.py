@@ -1,5 +1,5 @@
 import uuid
-
+from django.conf import settings
 from django.db import models
 
 
@@ -10,7 +10,7 @@ def generar_codigo():
 class Post(models.Model):
     # dni = models.CharField(max_length=12, unique=True)
     titulo = models.CharField(max_length=100)
-    autor = models.CharField(max_length=100)
+    autor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts")
     contenido = models.TextField()
     publicado = models.BooleanField(default=False)
     fecha_creacion = models.DateField(auto_now_add=True)

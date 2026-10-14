@@ -1,4 +1,110 @@
+:root {
+    --blog-primary: #4f46e5;
+    --blog-primary-dark: #3730a3;
+    --blog-bg: #f5f6fa;
+}
+
 body {
-    background-color: blanchedalmond;
-    color: #0d0124    
+    background-color: var(--blog-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.navbar-blog {
+    background: linear-gradient(90deg, var(--blog-primary-dark), var(--blog-primary));
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.avatar-navbar,
+.avatar-post,
+.avatar-perfil {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-navbar {
+    width: 32px;
+    height: 32px;
+}
+
+.avatar-post {
+    width: 40px;
+    height: 40px;
+}
+
+.avatar-perfil {
+    width: 140px;
+    height: 140px;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.avatar-inicial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--blog-primary);
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.avatar-inicial.sm {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+}
+
+.avatar-inicial.md {
+    width: 40px;
+    height: 40px;
+}
+
+.avatar-inicial.lg {
+    width: 140px;
+    height: 140px;
+    font-size: 3.5rem;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card {
+    border: 0;
+    border-radius: 12px;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--blog-primary);
+    --bs-btn-border-color: var(--blog-primary);
+    --bs-btn-hover-bg: var(--blog-primary-dark);
+    --bs-btn-hover-border-color: var(--blog-primary-dark);
+    --bs-btn-active-bg: var(--blog-primary-dark);
+    --bs-btn-active-border-color: var(--blog-primary-dark);
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--blog-primary-dark), var(--blog-primary));
+    color: #fff;
+    border-radius: 16px;
+}
+
+.post-imagen {
+    max-height: 420px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.post-contenido {
+    font-size: 1.1rem;
+    line-height: 1.8;
 }

@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 
 from post.forms import PostForm
@@ -58,8 +60,13 @@ def post_detail(request, pk):
     return render(request, "post/post_detail.html", {"post": post})
 
 
+@login_required # class post_delete(login_required):
 def post_delete(request, pk):
     post = Post.objects.get(id=pk)
+    
+    if post.autor != request.user and request.user.is_superuser is False:
+        return HttpResponseForbidden("No tenes permisos para eliminar este post.")
+
     if request.method == "POST":
         post.delete()
         return redirect("post_list")
@@ -67,10 +74,13 @@ def post_delete(request, pk):
     return render(request, "post/post_confirm_delete.html", {"post": post})
 
 
+@login_required
 def post_create(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
+            post = form.save(commit=False)
+            post.autor = request.user
             form.save()
             return redirect("post_list")
 
@@ -78,8 +88,13 @@ def post_create(request):
     return render(request, "post/post_form.html", {"form": form})
 
 
+@login_required
 def post_update(request, pk):
     post = Post.objects.get(id=pk)
+    
+    if post.autor != request.user and request.user.is_superuser is False:
+            return HttpResponseForbidden("No tenes permisos para editar este post.")
+    
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():

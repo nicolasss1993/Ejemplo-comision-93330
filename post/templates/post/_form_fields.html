@@ -1,0 +1,18 @@
+{% load bootstrap_extras %}
+{% for error in form.non_field_errors %}<div class="alert alert-danger py-2">{{ error }}</div>{% endfor %}
+{% for field in form.visible_fields %}
+    <div class="mb-3">
+        {% if field|es_checkbox %}
+            <div class="form-check">
+                {{ field|bootstrap }}
+                <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            </div>
+        {% else %}
+            <label class="form-label fw-semibold" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field|bootstrap }}
+        {% endif %}
+        {% for error in field.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+        {% if field.help_text %}<div class="form-text">{{ field.help_text|safe }}</div>{% endif %}
+    </div>
+{% endfor %}
+{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}

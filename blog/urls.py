@@ -23,6 +23,7 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("post.urls")),
+    path("accounts/", include("accounts.urls")),
 ]
 
 # Esto sirve para usar archivos "media" en modo desarrollo

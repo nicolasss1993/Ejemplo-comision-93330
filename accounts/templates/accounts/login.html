@@ -1,0 +1,31 @@
+{% extends "post/base.html" %}
+
+{% block titulo %}Iniciar sesión | Mi Blog{% endblock titulo %}
+
+{% block contenido %}
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body p-4 p-lg-5">
+                    <h1 class="h2 text-center mb-4">Iniciar sesión</h1>
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">El usuario o la contraseña no son correctos.</div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {% include "post/_form_fields.html" %}
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        <button type="submit" class="btn btn-primary w-100 btn-lg">Entrar</button>
+                    </form>
+
+                    <p class="text-center text-muted mt-4 mb-0">
+                        ¿No tenés cuenta?
+                        <a href="{% url 'registro' %}">Crear cuenta</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

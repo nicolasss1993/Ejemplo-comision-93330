@@ -1,0 +1,23 @@
+{% extends "post/base.html" %}
+
+{% block titulo %}Editar perfil | Mi Blog{% endblock titulo %}
+
+{% block contenido %}
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-body p-4 p-lg-5">
+                    <h1 class="h2 mb-4">Editar perfil</h1>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include "post/_form_fields.html" %}
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            <a class="btn btn-outline-secondary" href="{% url 'perfil' %}">Volver a mi perfil</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

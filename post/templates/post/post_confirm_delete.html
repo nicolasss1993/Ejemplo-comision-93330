@@ -1,11 +1,22 @@
 {% extends "post/base.html" %}
 
+{% block titulo %}Eliminar post | Mi Blog{% endblock titulo %}
+
 {% block contenido %}
-    <h1>Eliminar post</h1>
-    <p>¿Estás seguro de eliminar "{{ post }}"?</p>
-    <form action="" method="post">
-        {% csrf_token %}
-        <button type="submit">Sí, confirmo</button>
-    </form>
-    <a href="{% url 'post_list' %}">Volver</a>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-danger">
+                <div class="card-body p-4 p-lg-5 text-center">
+                    <i class="bi bi-exclamation-triangle text-danger display-4"></i>
+                    <h1 class="h3 mt-3">Eliminar post</h1>
+                    <p class="text-muted">¿Estás seguro de eliminar "{{ post }}"? Esta acción no se puede deshacer.</p>
+                    <form action="" method="post" class="d-flex gap-2 justify-content-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Sí, confirmo</button>
+                        <a class="btn btn-outline-secondary" href="{% url 'post_list' %}">Volver</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock contenido %}

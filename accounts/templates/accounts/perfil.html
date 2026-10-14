@@ -1,0 +1,47 @@
+{% extends "post/base.html" %}
+
+{% block titulo %}Mi perfil | Mi Blog{% endblock titulo %}
+
+{% block contenido %}
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-body p-4 p-lg-5 text-center">
+                    {% if perfil.avatar %}
+                        <img src="{{ perfil.avatar.url }}" alt="Avatar" class="avatar-perfil mb-3" />
+                    {% else %}
+                        <span class="avatar-inicial lg mb-3">{{ user.username|first }}</span>
+                    {% endif %}
+
+                    <h1 class="h3 mb-1">{{ user.username }}</h1>
+                    <p class="text-muted"><i class="bi bi-envelope me-1"></i>{{ user.email|default:"(sin email)" }}</p>
+
+                    <hr class="my-4" />
+
+                    <div class="text-start">
+                        <h2 class="h6 text-uppercase text-muted">Biografía</h2>
+                        <p>{{ perfil.biografia|default:"(sin biografía)" }}</p>
+
+                        {% if perfil.link_web %}
+                            <h2 class="h6 text-uppercase text-muted">Web</h2>
+                            <p>
+                                <a href="{{ perfil.link_web }}" target="_blank" rel="noopener">
+                                    <i class="bi bi-link-45deg"></i>{{ perfil.link_web }}
+                                </a>
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+                        <a class="btn btn-primary" href="{% url 'editar_perfil' %}">
+                            <i class="bi bi-pencil me-1"></i>Editar perfil
+                        </a>
+                        <a class="btn btn-outline-secondary" href="{% url 'password_change' %}">
+                            <i class="bi bi-key me-1"></i>Cambiar contraseña
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

@@ -14,7 +14,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ("autor", "titulo")
     
     # Habilita la barra de busqueda sobre estos campos
-    search_fields = ("autor",)
+    search_fields = ("autor__username",)
     
     # Agrega el panel lateral de filtros para estos campos
     list_filter = ("fecha_creacion", "fecha_modificacion")
