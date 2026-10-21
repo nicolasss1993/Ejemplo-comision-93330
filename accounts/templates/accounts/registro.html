@@ -2,28 +2,28 @@
 
 {% block titulo %}Crear cuenta | Mi Blog{% endblock titulo %}
 
+{% block masthead %}
+    {% include "post/_masthead.html" with titulo="Crear cuenta" subtitulo="Unite a la comunidad y empezá a publicar." imagen="post/img/about-bg.jpg" clase="page-heading" %}
+{% endblock masthead %}
+
 {% block contenido %}
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-body p-4 p-lg-5">
-                    <h1 class="h2 text-center mb-4">Crear cuenta</h1>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">Revisá los datos ingresados.</div>
+                {% endif %}
 
-                    {% if form.errors %}
-                        <div class="alert alert-danger" role="alert">Revisá los datos ingresados.</div>
-                    {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    {% include "post/_form_fields.html" %}
+                    <button type="submit" class="btn btn-primary text-uppercase">Registrarme</button>
+                </form>
 
-                    <form method="post">
-                        {% csrf_token %}
-                        {% include "post/_form_fields.html" %}
-                        <button type="submit" class="btn btn-primary w-100 btn-lg">Registrarme</button>
-                    </form>
-
-                    <p class="text-center text-muted mt-4 mb-0">
-                        ¿Ya tenés cuenta?
-                        <a href="{% url 'login' %}">Iniciar sesión</a>
-                    </p>
-                </div>
+                <p class="text-muted mt-4 mb-0">
+                    ¿Ya tenés cuenta?
+                    <a href="{% url 'login' %}">Iniciar sesión</a>
+                </p>
             </div>
         </div>
     </div>

@@ -2,44 +2,48 @@
 
 {% block titulo %}Contacto | Mi Blog{% endblock titulo %}
 
+{% block masthead %}
+    {% include "post/_masthead.html" with titulo="Contacto" subtitulo="¿Tenés preguntas? Tenemos respuestas." imagen="post/img/contact-bg.jpg" clase="page-heading" %}
+{% endblock masthead %}
+
 {% block contenido %}
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-body p-4 p-lg-5">
-                    <h1 class="h2 text-center mb-2">Contacto</h1>
-                    <p class="text-muted text-center mb-4">
-                        Escribinos tu mensaje y nos pondremos en contacto con vos a la brevedad.
-                    </p>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>
+                    Escribinos tu mensaje y nos pondremos en contacto con vos a la brevedad.
+                </p>
+                <div class="my-5">
                     <form action="#" method="post">
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
                             <input type="text"
                                    id="nombre"
                                    name="nombre"
                                    class="form-control"
                                    placeholder="Tu nombre"
                                    required />
+                            <label for="nombre">Nombre completo</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label fw-semibold">Correo electrónico</label>
+                        <div class="form-floating mb-3">
                             <input type="email"
                                    id="email"
                                    name="email"
                                    class="form-control"
                                    placeholder="tu@email.com"
                                    required />
+                            <label for="email">Correo electrónico</label>
                         </div>
-                        <div class="mb-4">
-                            <label for="mensaje" class="form-label fw-semibold">Mensaje</label>
+                        <div class="form-floating mb-4">
                             <textarea id="mensaje"
                                       name="mensaje"
-                                      rows="5"
                                       class="form-control"
                                       placeholder="¿En qué te podemos ayudar?"
+                                      style="height: 12rem"
                                       required></textarea>
+                            <label for="mensaje">Mensaje</label>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 btn-lg">
+                        <button type="submit" class="btn btn-primary text-uppercase">
                             <i class="bi bi-send me-1"></i>Enviar mensaje
                         </button>
                     </form>

@@ -1,27 +1,16 @@
 :root {
-    --blog-primary: #4f46e5;
-    --blog-primary-dark: #3730a3;
-    --blog-bg: #f5f6fa;
+    --blog-primary: #0085a1;
+    --blog-primary-dark: #005f73;
 }
 
 body {
-    background-color: var(--blog-bg);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 main {
-    flex: 1;
-}
-
-.navbar-blog {
-    background: linear-gradient(90deg, var(--blog-primary-dark), var(--blog-primary));
-}
-
-.navbar-brand {
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    flex: 1 0 auto;
 }
 
 .avatar-navbar,
@@ -34,11 +23,13 @@ main {
 .avatar-navbar {
     width: 32px;
     height: 32px;
+    border: 2px solid rgba(255, 255, 255, 0.65);
 }
 
 .avatar-post {
     width: 40px;
     height: 40px;
+    border: 2px solid #dee2e6;
 }
 
 .avatar-perfil {
@@ -57,6 +48,7 @@ main {
     color: #fff;
     font-weight: 600;
     text-transform: uppercase;
+    flex-shrink: 0;
 }
 
 .avatar-inicial.sm {
@@ -78,33 +70,93 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.card {
-    border: 0;
-    border-radius: 12px;
-}
-
-.btn-primary {
-    --bs-btn-bg: var(--blog-primary);
-    --bs-btn-border-color: var(--blog-primary);
-    --bs-btn-hover-bg: var(--blog-primary-dark);
-    --bs-btn-hover-border-color: var(--blog-primary-dark);
-    --bs-btn-active-bg: var(--blog-primary-dark);
-    --bs-btn-active-border-color: var(--blog-primary-dark);
-}
-
-.hero {
-    background: linear-gradient(135deg, var(--blog-primary-dark), var(--blog-primary));
-    color: #fff;
-    border-radius: 16px;
-}
-
 .post-imagen {
-    max-height: 420px;
+    max-height: 480px;
     width: 100%;
     object-fit: cover;
 }
 
 .post-contenido {
-    font-size: 1.1rem;
     line-height: 1.8;
+}
+
+.badge-tag {
+    display: inline-block;
+    padding: 0.25em 0.7em;
+    margin: 0 0.15rem 0.3rem 0;
+    color: var(--blog-primary);
+    background-color: rgba(0, 133, 161, 0.08);
+    border: 1px solid rgba(0, 133, 161, 0.3);
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+}
+
+.post-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    border-radius: 0;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--blog-primary);
+    box-shadow: 0 0 0 0.2rem rgba(0, 133, 161, 0.15);
+}
+
+.alert {
+    border-radius: 0;
+}
+
+.masthead .post-heading .avatar-post {
+    border-color: rgba(255, 255, 255, 0.65);
+}
+
+.buscador-posts .input-group-text,
+.buscador-posts .form-control,
+.buscador-posts .btn {
+    border-radius: 0;
+}
+
+.buscador-posts .input-group-text {
+    background-color: #fff;
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+.buscador-posts .form-control {
+    border-left: 0;
+    border-right: 0;
+}
+
+.buscador-posts .form-control:focus {
+    border-color: #dee2e6;
+    box-shadow: none;
+}
+
+.buscador-posts .btn-outline-secondary {
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+.buscador-posts .btn-outline-secondary:hover {
+    border-color: #dee2e6;
+    color: var(--blog-primary);
+    background-color: transparent;
+}
+
+.buscador-posts input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.buscador-resultados {
+    margin-top: 0.5rem;
 }

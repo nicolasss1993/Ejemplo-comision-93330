@@ -1,7 +1,7 @@
 {% load bootstrap_extras %}
 {% for error in form.non_field_errors %}<div class="alert alert-danger py-2">{{ error }}</div>{% endfor %}
 {% for field in form.visible_fields %}
-    <div class="mb-3">
+    <div class="mb-4">
         {% if field|es_checkbox %}
             <div class="form-check">
                 {{ field|bootstrap }}

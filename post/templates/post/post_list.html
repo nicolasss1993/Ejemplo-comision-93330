@@ -2,60 +2,85 @@
 
 {% block titulo %}Posts | Mi Blog{% endblock titulo %}
 
-{% block contenido %}
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
-        <div>
-            <h1 class="h2 mb-0">Mi Blog</h1>
-            <p class="text-muted mb-0">Lista de posts</p>
-        </div>
-        {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="{% url 'post_create' %}">
-                <i class="bi bi-plus-lg me-1"></i>Crear post
-            </a>
-        {% endif %}
-    </div>
+{% block masthead %}
+    {% include "post/_masthead.html" with titulo="Posts" subtitulo="Publicaciones de la comunidad." imagen="post/img/post-bg.jpg" clase="page-heading" %}
+{% endblock masthead %}
 
-    <div class="card shadow-sm">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th scope="col">Título</th>
-                        <th scope="col">Autor</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col" class="text-end">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for post in post_tecnologia %}
-                        <tr>
-                            <td class="fw-semibold">{{ post.titulo }}</td>
-                            <td>{{ post.autor.username }}</td>
-                            <td>{{ post.fecha_creacion }}</td>
-                            <td class="text-end text-nowrap">
-                                <a class="btn btn-outline-primary btn-sm"
-                                   href="{% url 'post_detail' post.id %}">
-                                    <i class="bi bi-eye"></i> Ver
+{% block contenido %}
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="mb-4">
+                    <form method="get" class="buscador-posts" role="search">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="search"
+                                   name="busqueda"
+                                   class="form-control"
+                                   placeholder="Buscar por título..."
+                                   aria-label="Buscar por título"
+                                   value="{{ request.GET.busqueda|default:'' }}" />
+                            <button type="submit" class="btn btn-primary text-uppercase">
+                                Buscar
+                            </button>
+                            {% if request.GET.busqueda %}
+                                <a class="btn btn-outline-secondary"
+                                   href="{% url 'post_list' %}"
+                                   title="Limpiar búsqueda"
+                                   aria-label="Limpiar búsqueda">
+                                    <i class="bi bi-x-lg"></i>
                                 </a>
-                                {% if user == post.autor %}
-                                    <a class="btn btn-outline-warning btn-sm"
-                                       href="{% url 'post_update' post.id %}">
-                                        <i class="bi bi-pencil"></i> Editar
-                                    </a>
-                                    <a class="btn btn-outline-danger btn-sm"
-                                       href="{% url 'post_delete' post.id %}">
-                                        <i class="bi bi-trash"></i> Eliminar
-                                    </a>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <td colspan="4" class="text-center text-muted py-5">No hay registros</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                            {% endif %}
+                        </div>
+                    </form>
+
+                    {% if request.GET.busqueda %}
+                        <p class="buscador-resultados text-muted small mb-0">
+                            Resultados para “{{ request.GET.busqueda }}”
+                        </p>
+                    {% endif %}
+
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3">
+                        <p class="text-muted mb-0">Cantidad de posts: {{ cantidad_post }}</p>
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-primary btn-sm text-uppercase"
+                               href="{% url 'post_create' %}">
+                                <i class="bi bi-plus-lg me-1"></i>Crear post
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% for post in post_tecnologia %}
+                    <div class="post-preview">
+                        <a href="{% url 'post_detail' post.id %}">
+                            <h2 class="post-title">{{ post.titulo }}</h2>
+                            <h3 class="post-subtitle">{{ post.contenido|striptags|truncatewords:28 }}</h3>
+                        </a>
+                        <p class="post-meta">Publicado por {{ post.autor.username }} el {{ post.fecha_creacion|date:"d/m/Y" }}</p>
+                        <div class="post-acciones">
+                            <a class="btn btn-sm btn-outline-primary text-uppercase"
+                               href="{% url 'post_detail' post.id %}">
+                                <i class="bi bi-eye me-1"></i>Ver
+                            </a>
+                            {% if user == post.autor %}
+                                <a class="btn btn-sm btn-outline-secondary text-uppercase"
+                                   href="{% url 'post_update' post.id %}">
+                                    <i class="bi bi-pencil me-1"></i>Editar
+                                </a>
+                                <a class="btn btn-sm btn-outline-danger text-uppercase"
+                                   href="{% url 'post_delete' post.id %}">
+                                    <i class="bi bi-trash me-1"></i>Eliminar
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if not forloop.last %}<hr class="my-4" />{% endif %}
+                {% empty %}
+                    <p class="text-center text-muted my-5">No hay registros</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock contenido %}

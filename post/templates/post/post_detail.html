@@ -1,31 +1,47 @@
 {% extends "post/base.html" %}
+{% load static %}
 
 {% block titulo %}{{ post.titulo }} | Mi Blog{% endblock titulo %}
 
-{% block contenido %}
-    <div class="row justify-content-center">
-        <div class="col-lg-9">
-            <article class="card shadow-sm overflow-hidden">
-                {% if post.imagen %}
-                    <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="post-imagen" />
-                {% endif %}
-                <div class="card-body p-4 p-lg-5">
-                    <h1 class="display-6 fw-bold mb-3">{{ post.titulo }}</h1>
-
-                    <div class="d-flex flex-wrap align-items-center gap-3 text-muted mb-4 pb-3 border-bottom">
-                        <div class="d-flex align-items-center gap-2">
-                            {% if post.autor.perfil.avatar %}
-                                <img src="{{ post.autor.perfil.avatar.url }}"
-                                     alt="Avatar de {{ post.autor.username }}"
-                                     class="avatar-post" />
-                            {% else %}
-                                <span class="avatar-inicial md">{{ post.autor.username|first }}</span>
-                            {% endif %}
-                            <span class="fw-semibold text-body">{{ post.autor.username }}</span>
-                        </div>
-                        <span><i class="bi bi-calendar3 me-1"></i>{{ post.fecha_creacion|date:"d/m/Y" }}</span>
-                        <span><i class="bi bi-hash"></i><code>{{ post.codigo }}</code></span>
+{% block masthead %}
+    <header class="masthead"
+            style="background-image: url('{% if post.imagen %}{{ post.imagen.url }}{% else %}{% static 'post/img/post-bg.jpg' %}{% endif %}')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>{{ post.titulo }}</h1>
+                        <span class="meta">
+                            Publicado por {{ post.autor.username }} el {{ post.fecha_creacion|date:"d/m/Y" }}
+                        </span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock masthead %}
+
+{% block contenido %}
+    <article>
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        {% if post.autor.perfil.avatar and post.autor.perfil.avatar.name != "default/default-avatar.png" %}
+                            <img src="{{ post.autor.perfil.avatar.url }}"
+                                 alt="Avatar de {{ post.autor.username }}"
+                                 class="avatar-post" />
+                        {% else %}
+                            <span class="avatar-inicial md">{{ post.autor.username|first }}</span>
+                        {% endif %}
+                        <span class="fw-semibold">{{ post.autor.username }}</span>
+                    </div>
+
+                    {% if post.imagen %}
+                        <img src="{{ post.imagen.url }}"
+                             alt="{{ post.titulo }}"
+                             class="post-imagen img-fluid mb-3" />
+                    {% endif %}
 
                     <div class="post-contenido mb-4">{{ post.contenido|linebreaks }}</div>
 
@@ -33,26 +49,32 @@
                         <div class="mb-4">
                             <span class="fw-semibold me-1">Etiquetas:</span>
                             {% for tag in post.obtener_lista_de_tags %}
-                                <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis">{{ tag }}</span>
+                                <span class="badge-tag">{{ tag }}</span>
                             {% endfor %}
                         </div>
                     {% endif %}
 
-                    <div class="d-flex flex-wrap gap-2">
-                        <a class="btn btn-outline-secondary" href="{% url 'post_list' %}">
-                            <i class="bi bi-arrow-left"></i> Volver
+                    <p class="text-muted small">
+                        <i class="bi bi-hash"></i>{{ post.codigo }}
+                    </p>
+
+                    <div class="post-acciones">
+                        <a class="btn btn-outline-secondary text-uppercase" href="{% url 'post_list' %}">
+                            <i class="bi bi-arrow-left me-1"></i>Volver
                         </a>
                         {% if user == post.autor %}
-                            <a class="btn btn-outline-warning" href="{% url 'post_update' post.id %}">
-                                <i class="bi bi-pencil"></i> Editar
+                            <a class="btn btn-outline-secondary text-uppercase"
+                               href="{% url 'post_update' post.id %}">
+                                <i class="bi bi-pencil me-1"></i>Editar
                             </a>
-                            <a class="btn btn-outline-danger" href="{% url 'post_delete' post.id %}">
-                                <i class="bi bi-trash"></i> Eliminar
+                            <a class="btn btn-outline-danger text-uppercase"
+                               href="{% url 'post_delete' post.id %}">
+                                <i class="bi bi-trash me-1"></i>Eliminar
                             </a>
                         {% endif %}
                     </div>
                 </div>
-            </article>
+            </div>
         </div>
-    </div>
+    </article>
 {% endblock contenido %}

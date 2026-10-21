@@ -10,8 +10,8 @@ def inicio(request):
     return render(request, "post/inicio.html")
 
 
-def contacto(request):
-    return render(request, "post/contacto.html")
+# def contacto(request):
+#     return render(request, "post/contacto.html")
 
 
 """
@@ -60,10 +60,10 @@ def post_detail(request, pk):
     return render(request, "post/post_detail.html", {"post": post})
 
 
-@login_required # class post_delete(login_required):
+@login_required  # class post_delete(login_required):
 def post_delete(request, pk):
     post = Post.objects.get(id=pk)
-    
+
     if post.autor != request.user and request.user.is_superuser is False:
         return HttpResponseForbidden("No tenes permisos para eliminar este post.")
 
@@ -91,10 +91,10 @@ def post_create(request):
 @login_required
 def post_update(request, pk):
     post = Post.objects.get(id=pk)
-    
+
     if post.autor != request.user and request.user.is_superuser is False:
-            return HttpResponseForbidden("No tenes permisos para editar este post.")
-    
+        return HttpResponseForbidden("No tenes permisos para editar este post.")
+
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
